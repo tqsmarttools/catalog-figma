@@ -199,7 +199,7 @@
     return `
       <div class="status-bar">
         <div>9:41</div>
-        <div class="signal-dots">•••</div>
+        <div class="signal-dots"><img src="public/assets/icon-dots.svg" alt="more" /></div>
       </div>
     `;
   }
@@ -216,7 +216,9 @@
               <span>SMARTTOOLS</span>
             </div>
           </div>
-          <button class="icon-circle-btn" type="button" data-action="call">✆</button>
+          <button class="icon-circle-btn" type="button" data-action="call" aria-label="Gọi / Zalo">
+            <img src="public/assets/icon-phone.svg" alt="" />
+          </button>
         </div>
 
         <section class="hero-banner">
@@ -298,15 +300,17 @@
         ${renderHeaderStatus()}
         <div class="page-header">
           <div class="page-header-left">
-            <button class="back-btn" type="button" data-action="back-home">←</button>
+            <button class="back-btn" type="button" data-action="back-home" aria-label="Quay lại">
+              <img src="public/assets/icon-back.svg" alt="" />
+            </button>
             <div>
               <div class="page-header-title">Bay xây dựng</div>
               <div class="page-header-subtitle">42 sản phẩm</div>
             </div>
           </div>
           <div class="header-actions">
-            <button class="filter-btn" type="button" data-action="open-filter">
-              <span class="filter-icon-lines"><span></span></span>
+            <button class="filter-btn" type="button" data-action="open-filter" aria-label="Mở bộ lọc">
+              <img src="public/assets/icon-filter.svg" alt="" />
             </button>
           </div>
         </div>
@@ -326,7 +330,7 @@
                   <div class="product-meta">
                     <div class="product-price">${formatPrice(product.price)}</div>
                     <button class="add-btn ${isAdded(product.id) ? "added" : ""}" type="button" data-toggle-product="${product.id}">
-                      <span>${isAdded(product.id) ? "✓" : "+"}</span>
+                      <span class="icon-inline"><img src="public/assets/${isAdded(product.id) ? "icon-check.svg" : "icon-plus.svg"}" alt="" /></span>
                       <span>Thêm</span>
                     </button>
                   </div>
@@ -354,7 +358,9 @@
           <div class="sheet-handle"></div>
           <div class="sheet-head">
             <div class="sheet-title">Bộ lọc sản phẩm</div>
-            <button class="sheet-close" type="button" data-action="close-filter">✕</button>
+            <button class="sheet-close" type="button" data-action="close-filter" aria-label="Đóng bộ lọc">
+              <img src="public/assets/icon-close.svg" alt="" />
+            </button>
           </div>
           <div class="sheet-section-label">Loại bay</div>
           <div class="filter-options">
@@ -385,7 +391,9 @@
         ${renderHeaderStatus()}
         <div class="page-header">
           <div class="page-header-left">
-            <button class="back-btn" type="button" data-action="back-products">←</button>
+            <button class="back-btn" type="button" data-action="back-products" aria-label="Quay lại danh sách sản phẩm">
+              <img src="public/assets/icon-back.svg" alt="" />
+            </button>
             <div>
               <div class="page-header-title">Danh sách báo giá</div>
               <div class="page-header-subtitle">${totalQuoteItems()} sản phẩm</div>
@@ -415,11 +423,11 @@
                     </div>
                     <div class="quote-stepper-row">
                       <div class="qty-stepper">
-                        <button type="button" data-qty-minus="${product.id}">−</button>
+                        <button type="button" data-qty-minus="${product.id}" aria-label="Giảm số lượng"><img src="public/assets/icon-minus.svg" alt="" /></button>
                         <span class="qty-divider"></span>
                         <span class="qty-value">${qty}</span>
                         <span class="qty-divider"></span>
-                        <button type="button" data-qty-plus="${product.id}">+</button>
+                        <button type="button" data-qty-plus="${product.id}" aria-label="Tăng số lượng"><img src="public/assets/icon-plus.svg" alt="" /></button>
                       </div>
                     </div>
                   </div>
@@ -442,8 +450,8 @@
             </div>
           </div>
           <div class="cta-stack">
-            <button class="cta-primary" type="button" data-action="send-zalo">💬 Gửi yêu cầu báo giá qua Zalo</button>
-            <button class="cta-secondary" type="button" data-action="back-products">← Tiếp tục xem sản phẩm</button>
+            <button class="cta-primary" type="button" data-action="send-zalo"><img class="icon-inline" src="public/assets/icon-message.svg" alt="" /> Gửi yêu cầu báo giá qua Zalo</button>
+            <button class="cta-secondary" type="button" data-action="back-products"><img class="icon-inline" src="public/assets/icon-back.svg" alt="" /> Tiếp tục xem sản phẩm</button>
           </div>
           <div style="margin-top: 12px;">
             <label for="customer-note" style="display:block;font-size:12px;color:#6e756f;margin-bottom:6px;">Ghi chú của khách</label>
@@ -460,16 +468,16 @@
     return `
       <nav class="bottom-nav">
         <button class="nav-item ${active === "home" ? "active" : ""}" type="button" data-nav="home">
-          <div class="nav-icon">⌂</div>
+          <div class="nav-icon"><img src="public/assets/icon-home.svg" alt="" /></div>
           <div>Trang chủ</div>
         </button>
         <button class="nav-item ${active === "quotes" ? "active" : ""}" type="button" data-nav="quotes">
-          <div class="nav-icon">▤</div>
+          <div class="nav-icon"><img src="public/assets/icon-list.svg" alt="" /></div>
           <div>Danh sách báo giá</div>
           ${totalQuoteItems() ? `<span class="nav-badge">${totalQuoteItems()}</span>` : ""}
         </button>
         <button class="nav-item zalo" type="button" data-action="send-zalo">
-          <div class="nav-icon">💬</div>
+          <div class="nav-icon"><img src="public/assets/icon-chat.svg" alt="" /></div>
           <div>Gọi / Zalo</div>
         </button>
       </nav>

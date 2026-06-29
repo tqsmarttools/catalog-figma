@@ -82,7 +82,15 @@ body {
 }
 
 .signal-dots {
-  letter-spacing: 1px;
+  width: 20px;
+  height: 20px;
+  color: #121212;
+}
+
+.signal-dots img {
+  width: 20px;
+  height: 20px;
+  display: block;
 }
 
 .home-header,
@@ -144,6 +152,24 @@ body {
   justify-content: center;
   color: var(--price-red-s3);
   cursor: pointer;
+}
+
+.icon-circle-btn img {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.icon-inline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-inline img {
+  width: 14px;
+  height: 14px;
+  display: block;
 }
 
 .hero-banner {
@@ -427,6 +453,12 @@ body {
   margin-top: 3px;
 }
 
+.back-btn img {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
 .page-header-title {
   font-size: 20px;
   font-weight: 700;
@@ -457,60 +489,10 @@ body {
   justify-content: center;
 }
 
-.filter-icon-lines,
-.sort-icon-lines {
-  position: relative;
-  width: 18px;
-  height: 14px;
-}
-
-.filter-icon-lines::before,
-.filter-icon-lines::after,
-.filter-icon-lines span,
-.sort-icon-lines::before,
-.sort-icon-lines::after,
-.sort-icon-lines span {
-  content: "";
-  position: absolute;
-  left: 0;
-  height: 2px;
-  border-radius: 999px;
-  background: var(--brand-green);
-}
-
-.filter-icon-lines::before {
-  top: 0;
-  width: 18px;
-}
-
-.filter-icon-lines span {
-  top: 6px;
-  width: 12px;
-  left: 3px;
-}
-
-.filter-icon-lines::after {
-  top: 12px;
-  width: 8px;
-  left: 5px;
-}
-
-.sort-icon-lines::before {
-  top: 0;
-  width: 10px;
-  left: 4px;
-}
-
-.sort-icon-lines span {
-  top: 6px;
-  width: 16px;
-  left: 1px;
-}
-
-.sort-icon-lines::after {
-  top: 12px;
-  width: 8px;
-  left: 5px;
+.filter-btn img {
+  width: 20px;
+  height: 16px;
+  display: block;
 }
 
 .product-grid {
@@ -722,6 +704,17 @@ body {
   font-weight: 600;
   line-height: 1;
   padding: 0;
+  width: 14px;
+  height: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qty-stepper button img {
+  width: 14px;
+  height: 14px;
+  display: block;
 }
 
 .qty-value {
@@ -852,9 +845,18 @@ body {
 }
 
 .nav-icon {
-  font-size: 24px;
-  line-height: 1;
+  width: 24px;
+  height: 24px;
   margin-bottom: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-icon img {
+  width: 24px;
+  height: 24px;
+  display: block;
 }
 
 .nav-badge {
@@ -944,6 +946,12 @@ body {
   color: #909991;
   font-size: 24px;
   line-height: 1;
+}
+
+.sheet-close img {
+  width: 20px;
+  height: 20px;
+  display: block;
 }
 
 .sheet-section-label {

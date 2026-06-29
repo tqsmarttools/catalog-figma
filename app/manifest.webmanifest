@@ -6,5 +6,12 @@
   "background_color": "#fcfcfa",
   "theme_color": "#145c4e",
   "lang": "vi",
-  "icons": []
+  "icons": [
+    {
+      "src": "./public/assets/icon-app.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
 }
