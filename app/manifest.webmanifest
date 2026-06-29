@@ -1,0 +1,10 @@
+{
+  "name": "Thiên Quang Smarttools Catalog",
+  "short_name": "TQ Catalog",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fcfcfa",
+  "theme_color": "#145c4e",
+  "lang": "vi",
+  "icons": []
+}
