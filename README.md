@@ -1,24 +1,26 @@
-# Catalog Figma
+# Figma Workflow Hub
 
-Thu muc nay dung de chua handoff tu Figma sang Codex/code.
+Trung tam handoff va tai lieu Figma cho cac du an giao dien.
 
 ## Cau truc
 
-- `exports/`
-  - JPG/PNG cua tung screen
-- `spec/`
-  - `DESIGN_SPEC.md` va cac ghi chu handoff
-- `assets/`
-  - logo, icon, product images, banner images
+- `Catalog/`
+  - handoff package cho Thiên Quang Catalog
+  - `spec/`, `exports/`, `assets/`, `app/`
+- `Website/`
+  - cho handoff va export cua website sau nay
+- `SKU Master app/`
+  - cho handoff va export cua app SKU Master sau nay
 
-## Goi y dat ten file
+## Nguyen tac
 
-- `exports/Screen01-Home.jpg`
-- `exports/Screen02-ProductList.jpg`
-- `exports/Screen03-QuoteList.jpg`
-- `spec/DESIGN_SPEC.md`
+1. Moi du an Figma con song trong mot thu muc rieng.
+2. `spec/` chua file thong so / workflow / design spec.
+3. `exports/` chua JPG/PNG cua man hinh.
+4. `assets/` chua logo, icon, product images, banner images.
+5. `app/` chi duoc dung khi can de source code frontend di kem handoff.
 
-## Cach dung
+## Hien tai
 
-1. Export file tu Figma vao dung thu muc con.
-2. Neu can day len GitHub, cung cap repo/link GitHub de Codex push len.
+- Du an da co du lieu day du nhat la `Catalog/`.
+- Source code app Catalog dang nam trong `Catalog/app/`.
