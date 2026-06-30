@@ -23,6 +23,7 @@
           activeFilter: "all",
           draftFilter: "all",
           isFilterOpen: false,
+          isPreviewOpen: false,
           note: "",
           quote: {},
           ...JSON.parse(raw)
@@ -38,6 +39,7 @@
       activeFilter: "all",
       draftFilter: "all",
       isFilterOpen: false,
+      isPreviewOpen: false,
       note: "",
       quote: {}
     };
@@ -53,6 +55,7 @@
         activeFilter: state.activeFilter,
         draftFilter: state.draftFilter,
         isFilterOpen: state.isFilterOpen,
+        isPreviewOpen: false,
         note: state.note,
         quote: state.quote
       })
@@ -133,6 +136,16 @@
   function openZaloQuote() {
     const message = encodeURIComponent(buildZaloMessage());
     window.open(`https://zalo.me/share?text=${message}`, "_blank", "noopener");
+  }
+
+  function openQuotePreview() {
+    state.isPreviewOpen = true;
+    render();
+  }
+
+  function closeQuotePreview() {
+    state.isPreviewOpen = false;
+    render();
   }
 
   function setScreen(screen) {
@@ -395,43 +408,74 @@
         </div>
 
         <div class="product-rows">
-          ${entries
-            .map(
-              ({ product, qty }) => `
-                <article class="quote-row">
-                  <div class="quote-image-shell">
-                    <div class="quote-image-inner">
-                      <img src="${getAsset("products", product.assetId)}" alt="${product.name}" />
-                    </div>
-                  </div>
-                  <div class="quote-main">
-                    <div class="quote-title">${product.name}</div>
-                    <div class="quote-code">${product.code}</div>
-                    <div class="quote-price-row">
-                      <div class="quote-price">${formatPrice(product.price)}</div>
-                      <div class="quote-total-col">
-                        <div class="quote-total-label">Thành tiền</div>
-                        <div class="quote-total-value">${formatPrice(product.price * qty)}</div>
-                      </div>
-                    </div>
-                    <div class="quote-stepper-row">
-                      <div class="qty-stepper">
-                        <button type="button" data-qty-minus="${product.id}" aria-label="Giảm số lượng"><img src="${ASSETS.icons.minus}" alt="" /></button>
-                        <span class="qty-divider"></span>
-                        <span class="qty-value">${qty}</span>
-                        <span class="qty-divider"></span>
-                        <button type="button" data-qty-plus="${product.id}" aria-label="Tăng số lượng"><img src="${ASSETS.icons.plus}" alt="" /></button>
-                      </div>
-                    </div>
-                  </div>
-                  <button class="quote-delete" type="button" data-delete="${product.id}">×</button>
-                </article>
-              `
-            )
-            .join("")}
+          ${entries.length ? renderQuoteRows(entries) : renderQuoteEmptyState()}
         </div>
 
-        <section class="summary-card">
+        ${entries.length ? renderSummaryCard() : ""}
+        ${renderBottomNav("quotes")}
+        ${renderQuotePreviewSheet()}
+      </div>
+    `;
+  }
+
+  function renderQuoteRows(entries) {
+    return entries
+      .map(
+        ({ product, qty }) => `
+          <article class="quote-row">
+            <div class="quote-image-shell">
+              <div class="quote-image-inner">
+                <img src="${getAsset("products", product.assetId)}" alt="${product.name}" />
+              </div>
+            </div>
+            <div class="quote-main">
+              <div class="quote-title">${product.name}</div>
+              <div class="quote-code">${product.code}</div>
+              <div class="quote-price-row">
+                <div class="quote-price">${formatPrice(product.price)}</div>
+                <div class="quote-total-col">
+                  <div class="quote-total-label">Thành tiền</div>
+                  <div class="quote-total-value">${formatPrice(product.price * qty)}</div>
+                </div>
+              </div>
+              <div class="quote-stepper-row">
+                <div class="qty-stepper">
+                  <button type="button" data-qty-minus="${product.id}" aria-label="Giảm số lượng"><img src="${ASSETS.icons.minus}" alt="" /></button>
+                  <span class="qty-divider"></span>
+                  <span class="qty-value">${qty}</span>
+                  <span class="qty-divider"></span>
+                  <button type="button" data-qty-plus="${product.id}" aria-label="Tăng số lượng"><img src="${ASSETS.icons.plus}" alt="" /></button>
+                </div>
+              </div>
+            </div>
+            <button class="quote-delete" type="button" data-delete="${product.id}">×</button>
+          </article>
+        `
+      )
+      .join("");
+  }
+
+  function renderQuoteEmptyState() {
+    return `
+      <section class="quote-empty">
+        <div class="quote-empty-visual">
+          <img src="${ASSETS.icons.list}" alt="" />
+        </div>
+        <div class="quote-empty-title">Chưa có sản phẩm nào</div>
+        <div class="quote-empty-copy">
+          Hãy thêm sản phẩm từ màn Danh sách sản phẩm để tạo yêu cầu báo giá đầu tiên.
+        </div>
+        <div class="quote-empty-actions">
+          <button class="cta-primary" type="button" data-action="back-products">← Tới danh sách sản phẩm</button>
+          <button class="cta-secondary" type="button" data-nav="home">⌂ Về trang chủ</button>
+        </div>
+      </section>
+    `;
+  }
+
+  function renderSummaryCard() {
+    return `
+      <section class="summary-card">
           <div class="summary-top">
             <div>
               <div class="summary-title">Tổng cộng</div>
@@ -443,7 +487,7 @@
             </div>
           </div>
           <div class="cta-stack">
-            <button class="cta-primary" type="button" data-action="send-zalo"><img class="icon-inline" src="${ASSETS.icons.message}" alt="" /> Gửi yêu cầu báo giá qua Zalo</button>
+            <button class="cta-primary" type="button" data-action="preview-zalo"><img class="icon-inline" src="${ASSETS.icons.message}" alt="" /> Gửi yêu cầu báo giá qua Zalo</button>
             <button class="cta-secondary" type="button" data-action="back-products"><img class="icon-inline" src="${ASSETS.icons.back}" alt="" /> Tiếp tục xem sản phẩm</button>
           </div>
           <div style="margin-top: 12px;">
@@ -451,8 +495,30 @@
             <textarea id="customer-note" data-note rows="3" style="width:100%;border:1px solid #e7ece8;border-radius:12px;padding:10px 12px;font:400 13px Inter, sans-serif;resize:none;color:#202220;">${state.note || ""}</textarea>
           </div>
         </section>
+    `;
+  }
 
-        ${renderBottomNav("quotes")}
+  function renderQuotePreviewSheet() {
+    if (!state.isPreviewOpen) return "";
+    return `
+      <div class="sheet-overlay" data-preview-overlay>
+        <div class="modal-shell preview-sheet">
+          <div class="sheet-handle"></div>
+          <div class="sheet-head">
+            <div class="sheet-title">Xem trước tin nhắn Zalo</div>
+            <button class="sheet-close" type="button" data-action="close-preview" aria-label="Đóng xem trước">
+              <img src="${ASSETS.icons.close}" alt="" />
+            </button>
+          </div>
+          <div class="preview-copy">
+            Đây là nội dung mẫu cố định sẽ được mở qua Zalo. Khách có thể chỉnh phần ghi chú trước khi gửi.
+          </div>
+          <div class="preview-box">${buildZaloMessage()}</div>
+          <div class="sheet-actions">
+            <button class="sheet-btn secondary" type="button" data-action="close-preview">Quay lại</button>
+            <button class="sheet-btn primary" type="button" data-action="send-zalo-confirm">Mở Zalo</button>
+          </div>
+        </div>
       </div>
     `;
   }
@@ -531,6 +597,12 @@
         if (action === "close-filter") closeFilter();
         if (action === "apply-filter") applyFilter();
         if (action === "reset-filter") resetFilter();
+        if (action === "preview-zalo") openQuotePreview();
+        if (action === "close-preview") closeQuotePreview();
+        if (action === "send-zalo-confirm") {
+          closeQuotePreview();
+          openZaloQuote();
+        }
         if (action === "send-zalo") openZaloQuote();
         if (action === "call") window.open("https://zalo.me", "_blank", "noopener");
       });
@@ -543,6 +615,12 @@
     root.querySelectorAll("[data-overlay]").forEach((overlay) => {
       overlay.addEventListener("click", (event) => {
         if (event.target === overlay) closeFilter();
+      });
+    });
+
+    root.querySelectorAll("[data-preview-overlay]").forEach((overlay) => {
+      overlay.addEventListener("click", (event) => {
+        if (event.target === overlay) closeQuotePreview();
       });
     });
 
