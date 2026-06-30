@@ -6,6 +6,8 @@
     products,
     filterOptions
   } = window.CATALOG_DATA;
+  const ASSETS = window.CATALOG_ASSETS;
+  const MESSAGE_TEMPLATE = window.CATALOG_MESSAGE_TEMPLATE;
 
   const state = loadState();
   const root = document.getElementById("screen-root");
@@ -119,26 +121,13 @@
   }
 
   function buildZaloMessage() {
-    const lines = [
-      "YÊU CẦU BÁO GIÁ - THIÊN QUANG SMARTTOOLS",
-      "",
-      `Số sản phẩm: ${totalQuoteItems()}`,
-      ""
-    ];
-    quoteEntries().forEach((entry, index) => {
-      lines.push(
-        `${index + 1}. ${entry.product.name}`,
-        `- Mã SP: ${entry.product.id}`,
-        `- Đơn giá: ${formatPrice(entry.product.price)}`,
-        `- Số lượng: ${entry.qty}`,
-        `- Thành tiền: ${formatPrice(entry.product.price * entry.qty)}`,
-        ""
-      );
+    return MESSAGE_TEMPLATE.build({
+      entries: quoteEntries(),
+      totalItems: totalQuoteItems(),
+      totalPrice: totalQuotePrice(),
+      note: state.note,
+      formatPrice
     });
-    lines.push(`Tạm tính tham khảo: ${formatPrice(totalQuotePrice())}`);
-    lines.push("");
-    lines.push(`Ghi chú khách: ${state.note || "(không có)"}`);
-    return lines.join("\n");
   }
 
   function openZaloQuote() {
@@ -195,11 +184,15 @@
     saveState();
   }
 
+  function getAsset(scope, key) {
+    return ASSETS[scope][key];
+  }
+
   function renderHeaderStatus() {
     return `
       <div class="status-bar">
         <div>9:41</div>
-        <div class="signal-dots"><img src="public/assets/icon-dots.svg" alt="more" /></div>
+        <div class="signal-dots"><img src="${ASSETS.icons.dots}" alt="more" /></div>
       </div>
     `;
   }
@@ -217,7 +210,7 @@
             </div>
           </div>
           <button class="icon-circle-btn" type="button" data-action="call" aria-label="Gọi / Zalo">
-            <img src="public/assets/icon-phone.svg" alt="" />
+            <img src="${ASSETS.icons.phone}" alt="" />
           </button>
         </div>
 
@@ -231,7 +224,7 @@
           </div>
           <div class="hero-stage">
             <div class="hero-stage-inner">
-              <img src="public/assets/bay-inox-22-a.png" alt="Bay xây dựng" />
+              <img src="${ASSETS.heroBay}" alt="Bay xây dựng" />
             </div>
           </div>
           <div class="hero-dots">
@@ -249,7 +242,7 @@
                 (category, index) => `
                   <button class="category-card ${index === 0 ? "active" : ""}" type="button" data-category="${category.id}">
                     <div class="category-icon-shell">
-                      <img class="category-icon" src="${category.icon}" alt="${category.name}" />
+                      <img class="category-icon" src="${getAsset("categories", category.assetId)}" alt="${category.name}" />
                     </div>
                     <div class="category-name">${category.name}</div>
                     <div class="category-count">${category.count}</div>
@@ -273,7 +266,7 @@
                   <button class="home-group-card" type="button" data-group="${group.id}">
                     <div class="home-group-stage">
                       <div class="home-group-stage-inner">
-                        <img src="${group.image}" alt="${group.name}" />
+                        <img src="${getAsset("products", group.assetId)}" alt="${group.name}" />
                       </div>
                     </div>
                     <div class="home-group-title">${group.name}</div>
@@ -301,7 +294,7 @@
         <div class="page-header">
           <div class="page-header-left">
             <button class="back-btn" type="button" data-action="back-home" aria-label="Quay lại">
-              <img src="public/assets/icon-back.svg" alt="" />
+              <img src="${ASSETS.icons.back}" alt="" />
             </button>
             <div>
               <div class="page-header-title">Bay xây dựng</div>
@@ -310,7 +303,7 @@
           </div>
           <div class="header-actions">
             <button class="filter-btn" type="button" data-action="open-filter" aria-label="Mở bộ lọc">
-              <img src="public/assets/icon-filter.svg" alt="" />
+              <img src="${ASSETS.icons.filter}" alt="" />
             </button>
           </div>
         </div>
@@ -322,7 +315,7 @@
                 <article class="product-card">
                   <div class="product-stage">
                     <div class="product-stage-inner">
-                      <img src="${product.image}" alt="${product.name}" />
+                      <img src="${getAsset("products", product.assetId)}" alt="${product.name}" />
                     </div>
                   </div>
                   <div class="product-name">${product.name}</div>
@@ -330,7 +323,7 @@
                   <div class="product-meta">
                     <div class="product-price">${formatPrice(product.price)}</div>
                     <button class="add-btn ${isAdded(product.id) ? "added" : ""}" type="button" data-toggle-product="${product.id}">
-                      <span class="icon-inline"><img src="public/assets/${isAdded(product.id) ? "icon-check.svg" : "icon-plus.svg"}" alt="" /></span>
+                      <span class="icon-inline"><img src="${isAdded(product.id) ? ASSETS.icons.check : ASSETS.icons.plus}" alt="" /></span>
                       <span>Thêm</span>
                     </button>
                   </div>
@@ -359,7 +352,7 @@
           <div class="sheet-head">
             <div class="sheet-title">Bộ lọc sản phẩm</div>
             <button class="sheet-close" type="button" data-action="close-filter" aria-label="Đóng bộ lọc">
-              <img src="public/assets/icon-close.svg" alt="" />
+              <img src="${ASSETS.icons.close}" alt="" />
             </button>
           </div>
           <div class="sheet-section-label">Loại bay</div>
@@ -392,7 +385,7 @@
         <div class="page-header">
           <div class="page-header-left">
             <button class="back-btn" type="button" data-action="back-products" aria-label="Quay lại danh sách sản phẩm">
-              <img src="public/assets/icon-back.svg" alt="" />
+              <img src="${ASSETS.icons.back}" alt="" />
             </button>
             <div>
               <div class="page-header-title">Danh sách báo giá</div>
@@ -408,7 +401,7 @@
                 <article class="quote-row">
                   <div class="quote-image-shell">
                     <div class="quote-image-inner">
-                      <img src="${product.image}" alt="${product.name}" />
+                      <img src="${getAsset("products", product.assetId)}" alt="${product.name}" />
                     </div>
                   </div>
                   <div class="quote-main">
@@ -423,11 +416,11 @@
                     </div>
                     <div class="quote-stepper-row">
                       <div class="qty-stepper">
-                        <button type="button" data-qty-minus="${product.id}" aria-label="Giảm số lượng"><img src="public/assets/icon-minus.svg" alt="" /></button>
+                        <button type="button" data-qty-minus="${product.id}" aria-label="Giảm số lượng"><img src="${ASSETS.icons.minus}" alt="" /></button>
                         <span class="qty-divider"></span>
                         <span class="qty-value">${qty}</span>
                         <span class="qty-divider"></span>
-                        <button type="button" data-qty-plus="${product.id}" aria-label="Tăng số lượng"><img src="public/assets/icon-plus.svg" alt="" /></button>
+                        <button type="button" data-qty-plus="${product.id}" aria-label="Tăng số lượng"><img src="${ASSETS.icons.plus}" alt="" /></button>
                       </div>
                     </div>
                   </div>
@@ -450,8 +443,8 @@
             </div>
           </div>
           <div class="cta-stack">
-            <button class="cta-primary" type="button" data-action="send-zalo"><img class="icon-inline" src="public/assets/icon-message.svg" alt="" /> Gửi yêu cầu báo giá qua Zalo</button>
-            <button class="cta-secondary" type="button" data-action="back-products"><img class="icon-inline" src="public/assets/icon-back.svg" alt="" /> Tiếp tục xem sản phẩm</button>
+            <button class="cta-primary" type="button" data-action="send-zalo"><img class="icon-inline" src="${ASSETS.icons.message}" alt="" /> Gửi yêu cầu báo giá qua Zalo</button>
+            <button class="cta-secondary" type="button" data-action="back-products"><img class="icon-inline" src="${ASSETS.icons.back}" alt="" /> Tiếp tục xem sản phẩm</button>
           </div>
           <div style="margin-top: 12px;">
             <label for="customer-note" style="display:block;font-size:12px;color:#6e756f;margin-bottom:6px;">Ghi chú của khách</label>
@@ -468,16 +461,16 @@
     return `
       <nav class="bottom-nav">
         <button class="nav-item ${active === "home" ? "active" : ""}" type="button" data-nav="home">
-          <div class="nav-icon"><img src="public/assets/icon-home.svg" alt="" /></div>
+          <div class="nav-icon"><img src="${ASSETS.icons.home}" alt="" /></div>
           <div>Trang chủ</div>
         </button>
         <button class="nav-item ${active === "quotes" ? "active" : ""}" type="button" data-nav="quotes">
-          <div class="nav-icon"><img src="public/assets/icon-list.svg" alt="" /></div>
+          <div class="nav-icon"><img src="${ASSETS.icons.list}" alt="" /></div>
           <div>Danh sách báo giá</div>
           ${totalQuoteItems() ? `<span class="nav-badge">${totalQuoteItems()}</span>` : ""}
         </button>
         <button class="nav-item zalo" type="button" data-action="send-zalo">
-          <div class="nav-icon"><img src="public/assets/icon-chat.svg" alt="" /></div>
+          <div class="nav-icon"><img src="${ASSETS.icons.chat}" alt="" /></div>
           <div>Gọi / Zalo</div>
         </button>
       </nav>

@@ -1,23 +1,23 @@
 window.CATALOG_DATA = {
   storageKey: "tqsmarttools-catalog-state-v1",
   categories: [
-    { id: "xay-to", name: "Xây tô", count: "300+", icon: "public/assets/bay-thep-20.png" },
-    { id: "op-lat", name: "Ốp lát", count: "250+", icon: "public/assets/ke-can-bang.png" },
-    { id: "son-nuoc", name: "Sơn nước", count: "180+", icon: "public/assets/bay-thep-20.png" },
-    { id: "thach-cao", name: "Thạch cao", count: "150+", icon: "public/assets/ban-keo-ho-60.png" }
+    { id: "xay-to", name: "Xây tô", count: "300+", assetId: "xayTo" },
+    { id: "op-lat", name: "Ốp lát", count: "250+", assetId: "opLat" },
+    { id: "son-nuoc", name: "Sơn nước", count: "180+", assetId: "sonNuoc" },
+    { id: "thach-cao", name: "Thạch cao", count: "150+", assetId: "thachCao" }
   ],
   productGroups: [
     {
       id: "bay-xay-dung",
       name: "Bay xây dựng",
       count: "120+ sản phẩm",
-      image: "public/assets/bay-thep-20.png"
+      assetId: "bayXayDungPrimary"
     },
     {
       id: "ke-can-bang",
       name: "Ke cân bằng",
       count: "80+ sản phẩm",
-      image: "public/assets/ke-can-bang.png"
+      assetId: "keCanBang"
     }
   ],
   products: [
@@ -29,7 +29,7 @@ window.CATALOG_DATA = {
       category: "xay-to",
       group: "bay-xay-dung",
       subtype: "can-go",
-      image: "public/assets/bay-inox-22-a.png"
+      assetId: "bayInox20A"
     },
     {
       id: "BXD-X02",
@@ -39,7 +39,7 @@ window.CATALOG_DATA = {
       category: "xay-to",
       group: "bay-xay-dung",
       subtype: "can-go",
-      image: "public/assets/bay-inox-22-a.png"
+      assetId: "bayInox22A"
     },
     {
       id: "BXD-X03",
@@ -49,7 +49,7 @@ window.CATALOG_DATA = {
       category: "xay-to",
       group: "bay-xay-dung",
       subtype: "can-tre",
-      image: "public/assets/bay-thep-20.png"
+      assetId: "bayThep20"
     },
     {
       id: "BXD-X04",
@@ -59,7 +59,7 @@ window.CATALOG_DATA = {
       category: "xay-to",
       group: "bay-xay-dung",
       subtype: "chuyen-xay",
-      image: "public/assets/bay-inox-22-a.png"
+      assetId: "bayInox22A"
     },
     {
       id: "BXD-X05",
@@ -69,7 +69,7 @@ window.CATALOG_DATA = {
       category: "xay-to",
       group: "bay-xay-dung",
       subtype: "chuyen-to",
-      image: "public/assets/bay-inox-22-a.png"
+      assetId: "bayInox20A"
     },
     {
       id: "BXD-X06",
@@ -79,7 +79,7 @@ window.CATALOG_DATA = {
       category: "xay-to",
       group: "bay-xay-dung",
       subtype: "lien-khoi",
-      image: "public/assets/bay-inox-22-a.png"
+      assetId: "bayInox22A"
     },
     {
       id: "BXD-T01",
@@ -89,7 +89,7 @@ window.CATALOG_DATA = {
       category: "xay-to",
       group: "bay-xay-dung",
       subtype: "vua-xay-va-to",
-      image: "public/assets/bay-thep-20.png"
+      assetId: "bayThep20"
     },
     {
       id: "KCB-01",
@@ -99,7 +99,7 @@ window.CATALOG_DATA = {
       category: "op-lat",
       group: "ke-can-bang",
       subtype: "combo-bay-cac-loai",
-      image: "public/assets/ke-can-bang.png"
+      assetId: "keCanBang"
     },
     {
       id: "BKH-60",
@@ -109,7 +109,7 @@ window.CATALOG_DATA = {
       category: "xay-to",
       group: "bay-xay-dung",
       subtype: "chuyen-xay",
-      image: "public/assets/ban-keo-ho-60.png"
+      assetId: "banKeoHo60"
     }
   ],
   filterOptions: [
